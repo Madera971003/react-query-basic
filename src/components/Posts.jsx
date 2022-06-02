@@ -17,8 +17,8 @@ export default function Posts({ setPostId }) {
       //refetchOnWindowFocus: false, //No hara refetch cuando se cambie de ventana y se regrese
       //refetchInterval: 2000, //Realizara un refetch cada cierto tiempo
       //staleTime: Infinity, //Siempre se considerara datos actualizados
-      staleTime: 10000, //Tiempo que se considerara como datos actualizados
-      cacheTime: 3000, //Tiempo que se mantendra el cache y despues de ese tiempo se borrara
+      //staleTime: 10000, //Tiempo que se considerara como datos actualizados
+      //cacheTime: 3000, //Tiempo que se mantendra el cache y despues de ese tiempo se borrara
     }
   );
 
