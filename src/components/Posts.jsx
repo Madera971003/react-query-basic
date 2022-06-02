@@ -1,27 +1,42 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { useEffect, useState } from "react";
 import { getPosts } from "../api/posts";
+import { useQuery } from 'react-query';
 
 export default function Posts({ setPostId }) {
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [posts, setPosts] = useState(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      try {
-        const data = await getPosts();
-        setPosts(data);
-        setError(null);
-      } catch (error) {
-        setError(error);
-        setPosts(null);
-      }
-      setIsLoading(false);
-    };
-    fetchData();
-  }, []);
+  const { 
+    data: posts,
+    error,
+    isLoading,
+    isFetching
+  } = useQuery(
+    ['post'],
+    getPosts,
+    {
+      refetchOnWindowFocus: false
+    }
+  )
+
+  // const [isLoading, setIsLoading] = useState(true);
+  // const [error, setError] = useState(null);
+  // const [posts, setPosts] = useState(null);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     setIsLoading(true);
+  //     try {
+  //       const data = await getPosts();
+  //       setPosts(data);
+  //       setError(null);
+  //     } catch (error) {
+  //       setError(error);
+  //       setPosts(null);
+  //     }
+  //     setIsLoading(false);
+  //   };
+  //   fetchData();
+  // }, []);
 
   if (isLoading) {
     return (
@@ -41,7 +56,7 @@ export default function Posts({ setPostId }) {
 
   return (
     <section>
-      <h2>Posts:</h2>
+      <h2>Posts: {isFetching && <span className="spinner-border"></span>}</h2>
       <ul>
         {posts.map((post) => (
           <li key={post.id}>
