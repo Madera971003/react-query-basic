@@ -9,7 +9,9 @@ export default function Posts({ setPostId }) {
     data: posts,
     error,
     isLoading,
-    isFetching
+    isFetching,
+    isIdle,
+    refetch,
   } = useQuery(
     ['post'],
     getPosts,
@@ -19,6 +21,7 @@ export default function Posts({ setPostId }) {
       //staleTime: Infinity, //Siempre se considerara datos actualizados
       //staleTime: 10000, //Tiempo que se considerara como datos actualizados
       //cacheTime: 3000, //Tiempo que se mantendra el cache y despues de ese tiempo se borrara
+      enabled: false,
     }
   );
 
@@ -41,6 +44,10 @@ export default function Posts({ setPostId }) {
   //   };
   //   fetchData();
   // }, []);
+
+  if (isIdle) {
+    return <button onClick={refetch}>Fetch Posts</button>
+  }
 
   if (isLoading) {
     return (
