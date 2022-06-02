@@ -1,10 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { useEffect, useState } from "react";
 import { getPosts } from "../api/posts";
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 
 export default function Posts({ setPostId }) {
-
+  const queryClient = useQueryClient();
   const { 
     data: posts,
     error,
@@ -22,8 +22,8 @@ export default function Posts({ setPostId }) {
       //staleTime: 10000, //Tiempo que se considerara como datos actualizados
       //cacheTime: 3000, //Tiempo que se mantendra el cache y despues de ese tiempo se borrara
       //enabled: false, //Habilita si se requiere que se muestre algo o no (se uso un boton para prueba)
-      retry: 2, //Numero de reintentos para extraer datos cuando falla el servidor (por defecto son 3 veces)
-      retryDelay: 2000, //Tiempo entre reintentos
+      // retry: 2, //Numero de reintentos para extraer datos cuando falla el servidor (por defecto son 3 veces)
+      // retryDelay: 2000, //Tiempo entre reintentos
     }
   );
 
@@ -73,7 +73,9 @@ export default function Posts({ setPostId }) {
       <ul>
         {posts.map((post) => (
           <li key={post.id}>
-            <a onClick={() => setPostId(post.id)} href="#">
+            <a 
+              className={queryClient.getQueryData(["posts", post.id]) && "link-success"}
+              onClick={() => setPostId(post.id)} href="#">
               {post.title}
             </a>
           </li>
