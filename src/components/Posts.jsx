@@ -10,8 +10,8 @@ export default function Posts({ setPostId }) {
     error,
     isLoading,
     isFetching,
-    isIdle,
-    refetch,
+    // isIdle,
+    // refetch,
   } = useQuery(
     ['post'],
     getPosts,
@@ -21,7 +21,9 @@ export default function Posts({ setPostId }) {
       //staleTime: Infinity, //Siempre se considerara datos actualizados
       //staleTime: 10000, //Tiempo que se considerara como datos actualizados
       //cacheTime: 3000, //Tiempo que se mantendra el cache y despues de ese tiempo se borrara
-      enabled: false,
+      //enabled: false, //Habilita si se requiere que se muestre algo o no (se uso un boton para prueba)
+      retry: 2, //Numero de reintentos para extraer datos cuando falla el servidor (por defecto son 3 veces)
+      retryDelay: 2000, //Tiempo entre reintentos
     }
   );
 
@@ -45,9 +47,9 @@ export default function Posts({ setPostId }) {
   //   fetchData();
   // }, []);
 
-  if (isIdle) {
-    return <button onClick={refetch}>Fetch Posts</button>
-  }
+  // if (isIdle) {
+  //   return <button onClick={refetch}>Fetch Posts</button>
+  // }
 
   if (isLoading) {
     return (
