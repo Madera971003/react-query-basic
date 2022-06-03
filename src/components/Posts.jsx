@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { getPosts } from "../api/posts";
 import { useQuery, useQueryClient } from 'react-query';
+import { usePosts } from "../hooks/usePosts";
 
 export default function Posts({ setPostId }) {
   const queryClient = useQueryClient();
@@ -12,20 +13,21 @@ export default function Posts({ setPostId }) {
     isFetching,
     // isIdle,
     // refetch,
-  } = useQuery(
-    ['post'],
-    getPosts,
-    {
-      //refetchOnWindowFocus: false, //No hara refetch cuando se cambie de ventana y se regrese
-      //refetchInterval: 2000, //Realizara un refetch cada cierto tiempo
-      //staleTime: Infinity, //Siempre se considerara datos actualizados
-      //staleTime: 10000, //Tiempo que se considerara como datos actualizados
-      //cacheTime: 3000, //Tiempo que se mantendra el cache y despues de ese tiempo se borrara
-      //enabled: false, //Habilita si se requiere que se muestre algo o no (se uso un boton para prueba)
-      // retry: 2, //Numero de reintentos para extraer datos cuando falla el servidor (por defecto son 3 veces)
-      // retryDelay: 2000, //Tiempo entre reintentos
-    }
-  );
+  } = usePosts();
+  // useQuery(
+  //   ['post'],
+  //   getPosts,
+  //   {
+  //     //refetchOnWindowFocus: false, //No hara refetch cuando se cambie de ventana y se regrese
+  //     //refetchInterval: 2000, //Realizara un refetch cada cierto tiempo
+  //     //staleTime: Infinity, //Siempre se considerara datos actualizados
+  //     //staleTime: 10000, //Tiempo que se considerara como datos actualizados
+  //     //cacheTime: 3000, //Tiempo que se mantendra el cache y despues de ese tiempo se borrara
+  //     //enabled: false, //Habilita si se requiere que se muestre algo o no (se uso un boton para prueba)
+  //     // retry: 2, //Numero de reintentos para extraer datos cuando falla el servidor (por defecto son 3 veces)
+  //     // retryDelay: 2000, //Tiempo entre reintentos
+  //   }
+  // );
 
   // const [isLoading, setIsLoading] = useState(true);
   // const [error, setError] = useState(null);

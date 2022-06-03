@@ -2,9 +2,11 @@
 import { useEffect, useState } from "react";
 import { useQuery } from 'react-query'
 import { getPostById } from "../api/posts";
+import { usePost } from "../hooks/usePosts";
 
 export default function Post({ postId }) {
-  const {data: post, error, isLoading} = useQuery(['post', postId], () => getPostById(postId))
+  const {data: post, error, isLoading} = usePost();
+  // useQuery(['post', postId], () => getPostById(postId))
   // const [isLoading, setIsLoading] = useState(true);
   // const [error, setError] = useState(null);
   // const [post, setPost] = useState(null);
