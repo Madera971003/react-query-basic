@@ -7,7 +7,7 @@ function NewPost() {
   const [body, setBody] = useState("");
 
   const queryClient = useQueryClient();
-  const {mutate, error, isLoading, isSuccess} = useMutation(createNewPost, {
+  const {mutate, error, isLoading, isSuccess, reset} = useMutation(createNewPost, {
     onSuccess: () => {
       //onSuccess hace que si la mutacion (en este caso agregar un nuevo post)
       //fue con exito, ejecuta la siguiente linea. La siguiente Linea invalida las
@@ -82,7 +82,7 @@ function NewPost() {
         )}
         {isSuccess && <div className="alert alert-success alert-dismissible" role="alert">
           The post was saved successfuly
-          <button type="button" className="btn-close"></button>
+          <button onClick={reset} type="button" className="btn-close"></button>
         </div>}
       </form>
     </section>
