@@ -7,13 +7,12 @@ function NewPost() {
   const [body, setBody] = useState("");
 
   const queryClient = useQueryClient();
-  const {mutate, error, isLoading} = useMutation(createNewPost, {
+  const {mutate, error, isLoading, isSuccess} = useMutation(createNewPost, {
     onSuccess: () => {
       //onSuccess hace que si la mutacion (en este caso agregar un nuevo post)
       //fue con exito, ejecuta la siguiente linea. La siguiente Linea invalida las
       //Queries, provocando que refresque los posts que se muestran en el navegador
-      queryClient.invalidateQueries(["posts"]);
-      console.log("Hola")
+      queryClient.invalidateQueries(true);
     },
   });
 
@@ -81,10 +80,10 @@ function NewPost() {
             Error creating the post: {error.message}
           </p>
         )}
-        {/* <div className="alert alert-success alert-dismissible" role="alert">
+        {isSuccess && <div className="alert alert-success alert-dismissible" role="alert">
           The post was saved successfuly
           <button type="button" className="btn-close"></button>
-        </div> */}
+        </div>}
       </form>
     </section>
   );
