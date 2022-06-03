@@ -1,27 +1,31 @@
 import React, { useState } from "react";
+import { useMutation } from "react-query";
 import { createNewPost } from "../api/posts";
 
 function NewPost() {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
+  const {mutate, error, isLoading} = useMutation(createNewPost);
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [error, setError] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setIsLoading(true);
-    try {
-      await createNewPost({ title, body });
+    mutate({ title, body })
 
-      setTitle("");
-      setBody("");
-    } catch (error) {
-      setError(error);
-    }
+    // setIsLoading(true);
+    // try {
+    //   await createNewPost({ title, body });
 
-    setIsLoading(false);
+    //   setTitle("");
+    //   setBody("");
+    // } catch (error) {
+    //   setError(error);
+    // }
+
+    // setIsLoading(false);
   };
 
   return (
