@@ -22,7 +22,15 @@ function NewPost() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    mutate({ title, body })
+    mutate({ title, body }, {
+      //Este es uso de onSuccess de una operación en específica
+      //Lo anterior es de forma general
+      onSuccess: () => {
+        //Si se realizó con exito la mutación, limpiará los recuadros
+        setTitle("");
+        setBody("");
+      }
+    })
 
     // setIsLoading(true);
     // try {
