@@ -1,11 +1,21 @@
 import React, { useState } from "react";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { createNewPost } from "../api/posts";
 
 function NewPost() {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
-  const {mutate, error, isLoading} = useMutation(createNewPost);
+
+  const queryClient = useQueryClient();
+  const {mutate, error, isLoading} = useMutation(createNewPost, {
+    onSuccess: () => {
+      //onSuccess hace que si la mutacion (en este caso agregar un nuevo post)
+      //fue con exito, ejecuta la siguiente linea. La siguiente Linea invalida las
+      //Queries, provocando que refresque los posts que se muestran en el navegador
+      queryClient.invalidateQueries(["posts"]);
+      console.log("Hola")
+    },
+  });
 
   // const [isLoading, setIsLoading] = useState(false);
   // const [error, setError] = useState(null);

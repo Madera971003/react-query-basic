@@ -49,6 +49,26 @@
       "title": "Este es un nuevo Post",
       "body": "Este es el contenido de dicho nuevo post",
       "id": 10
+    },
+    {
+      "title": "Prueba post",
+      "body": "Hola, este es un grandioso Post",
+      "id": 11
+    },
+    {
+      "title": "Hola mundo",
+      "body": "Hola",
+      "id": 12
+    },
+    {
+      "title": "Hola mundo2",
+      "body": "Hola",
+      "id": 13
+    },
+    {
+      "title": "Hola mundo3",
+      "body": "Hola",
+      "id": 14
     }
   ]
 }
